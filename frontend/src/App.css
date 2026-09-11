@@ -195,8 +195,8 @@ body {
 
 .todo-list li {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 3px;
   padding: 12px 14px;
   border-bottom: 1px solid var(--color-border);
 }
@@ -207,6 +207,14 @@ body {
 
 .todo-list li:hover {
   background: #fdfdfc;
+}
+
+.todo-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
 }
 
 .todo-list label {
@@ -240,10 +248,106 @@ body {
 }
 
 /* ============================================
-   Delete Button (per item)
+   Todo Item (edit mode)
    ============================================ */
 
-.delete-btn {
+.edit-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.edit-form input[type="text"] {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 10px;
+  font-size: 14px;
+  font-family: var(--font-base);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-text);
+  outline: none;
+}
+
+.save-btn {
+  padding: 6px 12px;
+  font-size: 13px;
+  font-family: var(--font-base);
+  font-weight: 500;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--color-primary);
+  color: #fff;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+
+.save-btn:hover {
+  background: var(--color-primary-hover);
+}
+
+.save-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.cancel-btn {
+  padding: 6px 12px;
+  font-size: 13px;
+  font-family: var(--font-base);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+}
+
+.cancel-btn:hover {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.cancel-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* ============================================
+   Todo Item (dates)
+   ============================================ */
+
+.todo-meta {
+  margin: 0;
+  padding-left: 28px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--color-text-muted);
+}
+
+/* ============================================
+   Item Action Buttons (edit / delete)
+   ============================================ */
+
+.item-actions {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.todo-list li:hover .item-actions,
+.item-actions:focus-within {
+  opacity: 1;
+}
+
+.icon-btn {
   border: none;
   background: none;
   color: var(--color-text-muted);
@@ -251,17 +355,31 @@ body {
   cursor: pointer;
   padding: 4px 6px;
   border-radius: 3px;
-  opacity: 0;
-  transition: opacity 0.15s, color 0.15s, background 0.15s;
+  transition: color 0.15s, background 0.15s;
 }
 
-.todo-list li:hover .delete-btn {
-  opacity: 1;
+.edit-btn:hover {
+  color: var(--color-primary);
+  background: #eef2ec;
 }
 
 .delete-btn:hover {
   color: var(--color-danger);
   background: #fef0ed;
+}
+
+/* ============================================
+   Error Banner
+   ============================================ */
+
+.error-banner {
+  margin: 0 0 16px;
+  padding: 8px 12px;
+  font-size: 13px;
+  color: var(--color-danger);
+  background: #fef0ed;
+  border: 1px solid #e8ccc6;
+  border-radius: var(--radius);
 }
 
 /* ============================================
@@ -344,7 +462,11 @@ body {
     padding: 10px 14px;
   }
 
-  .delete-btn {
+  .item-actions {
     opacity: 1;
+  }
+
+  .todo-meta {
+    padding-left: 0;
   }
 }

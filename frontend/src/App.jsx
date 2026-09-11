@@ -15,10 +15,13 @@ function App() {
     remaining,
     hasCompleted,
     hasTodos,
+    loading,
+    error,
     setSearchQuery,
     setFilter,
     addTodo,
     toggleTodo,
+    updateTodo,
     deleteTodo,
     clearCompleted,
     removeAll,
@@ -31,10 +34,18 @@ function App() {
 
         <AddTodo onAdd={addTodo} />
 
+        {error && <p className="error-banner">{error}</p>}
+
         {hasTodos && <Search value={searchQuery} onChange={setSearchQuery} />}
         {hasTodos && <Filter current={filter} onChange={setFilter} />}
 
-        <TodoList todos={todos} onToggle={toggleTodo} onDelete={deleteTodo} />
+        <TodoList
+          todos={todos}
+          loading={loading}
+          onToggle={toggleTodo}
+          onUpdate={updateTodo}
+          onDelete={deleteTodo}
+        />
 
         <TodoActions
           onClearCompleted={clearCompleted}

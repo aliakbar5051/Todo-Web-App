@@ -1,6 +1,10 @@
 import TodoItem from "./TodoItem";
 
-export default function TodoList({ todos, onToggle, onDelete }) {
+export default function TodoList({ todos, loading, onToggle, onUpdate, onDelete }) {
+  if (loading) {
+    return <p className="empty">loading todos...</p>;
+  }
+
   if (todos.length === 0) {
     return <p className="empty">nothing here yet... add your first task!</p>;
   }
@@ -12,6 +16,7 @@ export default function TodoList({ todos, onToggle, onDelete }) {
           key={todo.id}
           todo={todo}
           onToggle={onToggle}
+          onUpdate={onUpdate}
           onDelete={onDelete}
         />
       ))}

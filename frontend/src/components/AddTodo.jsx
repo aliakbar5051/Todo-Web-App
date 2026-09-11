@@ -3,11 +3,12 @@ import { useState } from "react";
 export default function AddTodo({ onAdd }) {
   const [text, setText] = useState("");
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    if (!text.trim()) return;
-    onAdd(text.trim());
-    setText("");
+    const trimmed = text.trim();
+    if (!trimmed) return;
+    const added = await onAdd(trimmed);
+    if (added) setText("");
   }
 
   return (
@@ -17,6 +18,7 @@ export default function AddTodo({ onAdd }) {
         value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder="what needs doing?"
+        maxLength={500}
       />
       <button type="submit">add</button>
     </form>

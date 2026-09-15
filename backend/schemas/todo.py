@@ -53,6 +53,7 @@ class TodoResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+    user_id: int
     task: str
     completed: bool
     created_at: datetime
